@@ -1,4 +1,4 @@
-# Avito test task
+# Test task
 executed by Artem Shmakov
 ## Installation & Run
 ```bash
