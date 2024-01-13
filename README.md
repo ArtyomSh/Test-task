@@ -3,7 +3,7 @@ executed by Artem Shmakov
 ## Installation & Run
 ```bash
 # Download this project
-git clone git@github.com:ArtyomSh/Test-task.git
+git clone https://github.com/ArtyomSh/Test-task.git
 ```
 ```bash
 # Build project
