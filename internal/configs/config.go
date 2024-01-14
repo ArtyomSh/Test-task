@@ -2,7 +2,7 @@ package configs
 
 import (
 	"github.com/ilyakaznacheev/cleanenv"
-	"go.uber.org/zap"
+	"log"
 	"sync"
 )
 
@@ -21,17 +21,20 @@ type Config struct {
 		Password string `yaml:"password"`
 		DB       int    `yaml:"db"`
 	} `yaml:"redis"`
+	Logging struct {
+		Verbosity bool `yaml:"verbosity"`
+	} `yaml:"logging"`
 }
 
 var instance *Config
 var once sync.Once
 
-func GetConfig(logger *zap.Logger) *Config {
+func GetConfig() *Config {
 	once.Do(func() {
 		instance = &Config{}
 		if err := cleanenv.ReadConfig("configs/config.yml", instance); err != nil {
 			help, _ := cleanenv.GetDescription(instance, nil)
-			logger.Info(help)
+			log.Println(help)
 		}
 	})
 	return instance

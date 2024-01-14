@@ -10,8 +10,8 @@ type MemoryRateRepo struct {
 	mx    sync.Mutex
 }
 
-func NewMemoryRepo() MemoryRateRepo {
-	return MemoryRateRepo{Rates: make(map[string]string)}
+func NewMemoryRepo() RateRepo {
+	return &MemoryRateRepo{Rates: make(map[string]string)}
 }
 
 func (m *MemoryRateRepo) SetRate(rate models.Rate) error {

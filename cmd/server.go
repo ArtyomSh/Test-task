@@ -18,21 +18,20 @@ var serverCmd = &cobra.Command{
 	Short: "Run server",
 	Long:  `Run server`,
 	Run: func(cmd *cobra.Command, args []string) {
-		logger := loggers.New(true)
-		logger.Info("logger created")
+		cfg := configs.GetConfig()
 
-		cfg := configs.GetConfig(logger)
-		logger.Info("config received")
+		logger := loggers.New(cfg.Logging.Verbosity)
+		logger.Info("logger created")
 
 		var repo repositories.RateRepo
 		switch cfg.Repository.Repo {
 		case "redis":
 			r := repositories.NewRedisRepo(*cfg)
-			repo = &r
+			repo = r
 			logger.Info("redis rate repository created")
 		case "memory":
 			r := repositories.NewMemoryRepo()
-			repo = &r
+			repo = r
 			logger.Info("memory rate repository created")
 		default:
 			log.Fatalln("Unsupported rate repository")
@@ -47,8 +46,8 @@ var serverCmd = &cobra.Command{
 		router.HandleFunc("/api/v1/rates", h.POSTPair).Methods(http.MethodPost)
 		logger.Info("API is running!")
 
-		updater := Ticker.New()
-		updater.RunUpdate(*cfg, repo)
+		updater := Ticker.New(*cfg)
+		updater.RunUpdate(repo)
 		logger.Info("Rate update started")
 
 		port := cfg.Listen.Port

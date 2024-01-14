@@ -16,10 +16,11 @@ var rateCmd = &cobra.Command{
 	Short: "Get rate command",
 	Long:  `Returns the rate on the pairs passed in the "pairs" parameter`,
 	Run: func(cmd *cobra.Command, args []string) {
-		logger := loggers.New(true)
+		cfg := configs.GetConfig()
+
+		logger := loggers.New(cfg.Logging.Verbosity)
 		logger.Info("logger created")
 
-		cfg := configs.GetConfig(logger)
 		pairs, _ := cmd.Flags().GetString("pairs")
 		if pairs == "" {
 			logger.Warn("Empty flag")
@@ -29,8 +30,6 @@ var rateCmd = &cobra.Command{
 		resp, err := http.Get(getResponse)
 		if err != nil {
 			logger.Error(err.Error())
-			////todo?
-			//log.Fatalln(err)
 			return
 		}
 

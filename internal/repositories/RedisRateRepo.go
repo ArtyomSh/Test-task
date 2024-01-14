@@ -13,7 +13,7 @@ type RedisRateRepo struct {
 	ctx    context.Context
 }
 
-func NewRedisRepo(cfg configs.Config) RedisRateRepo {
+func NewRedisRepo(cfg configs.Config) RateRepo {
 	client := redis.NewClient(&redis.Options{
 		Addr:     fmt.Sprintf("db:%s", cfg.Redis.Port),
 		Password: cfg.Redis.Password,
@@ -21,7 +21,7 @@ func NewRedisRepo(cfg configs.Config) RedisRateRepo {
 	})
 
 	ctx := context.Background()
-	return RedisRateRepo{client: client, ctx: ctx}
+	return &RedisRateRepo{client: client, ctx: ctx}
 }
 
 func (r *RedisRateRepo) SetRate(rate models.Rate) error {
