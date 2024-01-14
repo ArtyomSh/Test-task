@@ -4,7 +4,7 @@ listen:
 binance:
   url: https://api.binance.com/api/v3/ticker/price
 repository:
-  repo: redis
+  repo: memory
 redis:
   port: 6379
   password: pass
