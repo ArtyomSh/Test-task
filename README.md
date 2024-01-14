@@ -49,15 +49,15 @@ docker run --name redis-test-instance -p 6379:6379 -d redis
 * Server
 ```bash
 # Run server
-TestTask server
+./TestTask server
 ```
 * Rate
 ```bash
 # Get `ETH-USDT` rate
-TestTask rate --pairs=ETH-USDT
+./TestTask rate --pairs=ETH-USDT
 ```
 ```bash
 # Get [BTC-USDT,ETH-USDT] rates
-TestTask rate --pairs=BTC-USDT,ETH-USDT
+./TestTask rate --pairs=BTC-USDT,ETH-USDT
 ```
 
