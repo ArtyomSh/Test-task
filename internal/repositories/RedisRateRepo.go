@@ -15,7 +15,7 @@ type RedisRateRepo struct {
 
 func NewRedisRepo(cfg configs.Config) RateRepo {
 	client := redis.NewClient(&redis.Options{
-		Addr:     fmt.Sprintf("db:%s", cfg.Redis.Port),
+		Addr:     fmt.Sprintf("localhost:%s", cfg.Redis.Port),
 		Password: cfg.Redis.Password,
 		DB:       cfg.Redis.DB,
 	})
